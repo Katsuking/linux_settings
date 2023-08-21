@@ -43,9 +43,10 @@ alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -
 function myalias() {
 	sudo vim ~/.bash_aliases && source ~/.bashrc
 	# git 管理しているディレクトリに飛ばす
-	[[ $(hostname) == "super" ]] && cp  ~/.bash_aliases ${dev}/wiki/linux
-	[[ $(hostname) == "main" ]] && cp  ~/.bash_aliases ${dev}/wiki/linux
+	cp  ~/.bash_aliases ${dev}/wiki/linux
+	cp  ~/.bash_aliases ${dev}/linux_settings
 }
+
 alias myalias=myalias
 
 alias bashrc='sudo vim ~/.bashrc && source ~/.bashrc'
@@ -85,9 +86,11 @@ function nf() {
 
 	[[ -n ${cmdarg} ]]  && cd $(dirname ${cmdarg}) 2>/dev/null && nv "${cmdarg}"
 
-	cd $(dirname "${fp}")
-	[[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
-	nv $(basename "${fp}" 2>/dev/null)
+	if [[ -n ${fp} ]];then
+		cd $(dirname "${fp}")
+		[[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
+		nv $(basename "${fp}" 2>/dev/null)
+	fi
 
 	# init.luaを編集した場合は、git管理ディレクトリへ飛ばす
 	if [[ $(basename ${fp} 2>/dev/null ) == "init.lua" ]]; then
@@ -146,6 +149,7 @@ git_root=(
     "${dev}/python_for_fun"
     "${dev}/wiki"
     "${dev}/javascriptProjects"
+    "${dev}/linux_settings"
 )
 
 function gitpullall() {
