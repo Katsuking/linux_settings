@@ -1,6 +1,8 @@
 
+#############################################
+# 環境依存 env
+#############################################
 
-### 環境依存
 if [[ $(hostname) == "super" ]];then
 	export dev="/media/external1/developement"
 	export ssd='/media/external1'
@@ -30,7 +32,6 @@ alias folder=nautilus
 alias explorer=nautilus
 alias du='du -h -s'
 
-
 export VISUAL="vim"
 
 export EDITOR='nv'
@@ -51,6 +52,9 @@ alias myalias=myalias
 
 alias bashrc='sudo vim ~/.bashrc && source ~/.bashrc'
 
+#############################################
+### fzf neovim
+#############################################
 
 alias ff="find . | fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 alias ffd="find . -type d | fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
@@ -118,8 +122,10 @@ function ffcode() {
 
 alias ffcode=ffcode 
 
+#############################################
+### git
+#############################################
 
-### automate git push
 function gitup() {
 	local cwd=$(pwd)
 	local rootdir=$(git rev-parse --show-toplevel 2>/dev/null)
@@ -228,6 +234,5 @@ alias scpmain=scpmain
 
 alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
 alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpaper.sh"
-
 
 
