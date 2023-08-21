@@ -15,6 +15,14 @@ if [[ $(hostname) == "main" ]]; then
 	alias nv="${appimage}/nvim.appimage --appimage-extract-and-run"
 fi
 
+function openf() {
+	local f=${1}
+	open ${f} > /dev/null 2>&1
+}
+
+alias open=openf
+
+
 alias py="python3"
 alias xclip="xclip -selection c"
 alias clip='xclip -selection c'
