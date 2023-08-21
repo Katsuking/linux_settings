@@ -100,6 +100,8 @@ function nf() {
 
 alias nf=nf
 
+alias devnf="cd ${dev} && nf"
+
 # change dir + open with vscode
 function ffcode() {
         local cmdarg=${1}
@@ -210,6 +212,9 @@ function userdefinedscript() {
 	local script=${1}
 	sudo cp ${script} "/usr/local/bin"
 	sudo chmod 750 "/usr/local/bin/${script}"
+	echo "copied to /usr/local/bin"
+	read -p "Do you want to change dir to /usr/local/bin ? (y/n) " answer
+	[[ "$answer" == "y" || "$answer" == "Y" ]] && cd "/usr/local/bin"
 }
 
 alias userdefinedscript=userdefinedscript
@@ -220,5 +225,9 @@ function scpmain() {
 }
 
 alias scpmain=scpmain
+
+alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
+alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpaper.sh"
+
 
 
