@@ -22,7 +22,6 @@ function openf() {
 
 alias open=openf
 
-
 alias py="python3"
 alias xclip="xclip -selection c"
 alias clip='xclip -selection c'
@@ -47,6 +46,10 @@ export EDITOR='nv'
 alias git_push="sudo bash ${dev}/generalJob/git_cron/push.sh"
 
 alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y'
+
+#############################################
+### .bash_aliases alias 
+#############################################
 
 # alias
 function myalias() {
@@ -200,7 +203,10 @@ function gitpushall() {
 
 # create Makefile template for python
 function pymakefile() {
-cat << 'EOF' > "$(pwd)/Makefile"
+	
+	[[ ! -f "${pwd}/requirements.txt" ]] && touch "${pwd}/requirements.txt"
+
+	cat << 'EOF' > "$(pwd)/Makefile"
 VENV = venv
 PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip
@@ -239,6 +245,10 @@ function scpmain() {
 }
 
 alias scpmain=scpmain
+
+#############################################
+### change background
+#############################################
 
 alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
 alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpaper.sh"
