@@ -173,19 +173,27 @@ function gitpushall() {
 	source ~/.env
 	for root_dir in "${git_root[@]}"
 	do
-	    if [ -d "$root_dir/.git" ]; then
-	       cd "${root_dir}"
-	       echo
-	        BRANCH=$(git symbolic-ref --short HEAD)
-	        git pull origin ${BRANCH}
-	        git config --global user.email "${USER_EMAIL}"
-	        git config --global user.name "${USER_NAME}"
-	        git add -A
-	        git commit -m "daily update!"
-	        git push origin ${BRANCH}:${BRANCH}
-	    else
-	        continue
-	    fi
+		if [ -d "$root_dir/.git" ]; then
+			cd "${root_dir}"
+			git status
+			echo
+			BRANCH=$(git symbolic-ref --short HEAD)
+			read -p "Do you want to push all changes inside $(basename ${root_dir}) dir to ${BRANCH}? (y/n) " answer
+			if [[ "$answer" == "y" || "$answer" == "Y" ]]; then		
+	   			git pull origin ${BRANCH}
+	   	     		git config --global user.email "${USER_EMAIL}"
+	   	     		git config --global user.name "${USER_NAME}"
+	   	     		git add -A
+	   	     		git commit -m "daily update!"
+	   	     		git push origin ${BRANCH}:${BRANCH}
+			else
+				echo "Skipping ${root_dir} brannch: ${BRANCH}"
+				continue
+			fi
+	    	else
+			echo "Could not find git in this dir: ${root_dir}"
+	        	continue
+	   	fi
 	done
 }
 
@@ -238,5 +246,8 @@ alias scpmain=scpmain
 
 alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
 alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpaper.sh"
+
+# monitor size
+alias monitor_size="cat /sys/class/graphics/*/modes"
 
 
