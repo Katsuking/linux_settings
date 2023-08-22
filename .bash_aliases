@@ -15,13 +15,6 @@ if [[ $(hostname) == "main" ]]; then
 	alias nv="${appimage}/nvim.appimage --appimage-extract-and-run"
 fi
 
-function openf() {
-	local f=${1}
-	open ${f} > /dev/null 2>&1
-}
-
-alias open=openf
-
 alias py="python3"
 alias xclip="xclip -selection c"
 alias clip='xclip -selection c'
@@ -46,10 +39,6 @@ export EDITOR='nv'
 alias git_push="sudo bash ${dev}/generalJob/git_cron/push.sh"
 
 alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y'
-
-#############################################
-### .bash_aliases alias 
-#############################################
 
 # alias
 function myalias() {
@@ -203,9 +192,10 @@ function gitpushall() {
 
 # create Makefile template for python
 function pymakefile() {
-	
-	[[ ! -f "${pwd}/requirements.txt" ]] && touch "${pwd}/requirements.txt"
 
+	[[ ! -f $(pwd)/requirements.txt ]] && touch "$(pwd)/requirements.txt"
+
+	[[ ! -f "$(pwd)/Makefile" ]] && /	
 	cat << 'EOF' > "$(pwd)/Makefile"
 VENV = venv
 PYTHON = $(VENV)/bin/python3
@@ -245,10 +235,6 @@ function scpmain() {
 }
 
 alias scpmain=scpmain
-
-#############################################
-### change background
-#############################################
 
 alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
 alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpaper.sh"
