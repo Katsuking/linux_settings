@@ -16,6 +16,11 @@ if [[ $(hostname) == "main" ]]; then
 fi
 
 alias py="python3"
+
+#############################################
+# utils
+#############################################
+
 alias xclip="xclip -selection c"
 alias clip='xclip -selection c'
 
@@ -36,7 +41,7 @@ export VISUAL="vim"
 
 export EDITOR='nv'
 
-alias git_push="sudo bash ${dev}/generalJob/git_cron/push.sh"
+# alias git_push="sudo bash ${dev}/generalJob/git_cron/push.sh"
 
 alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y'
 
@@ -198,13 +203,16 @@ function gitpushall() {
 }
 
 
+#############################################
+# Makefile 
+#############################################
+
 # create Makefile template for python
 function pymakefile() {
 
 	[[ ! -f $(pwd)/requirements.txt ]] && touch "$(pwd)/requirements.txt"
 
-	[[ ! -f "$(pwd)/Makefile" ]] && /	
-	cat << 'EOF' > "$(pwd)/Makefile"
+	[[ ! -f "$(pwd)/Makefile" ]] && cat << 'EOF' > "$(pwd)/Makefile"
 VENV = venv
 PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip
@@ -219,6 +227,7 @@ $(VENV)/bin/activate: requirements.txt
 clean:
 	rm -rf __pycache__
 	rm -rf $(VENV)
+
 EOF
 }
 
@@ -235,6 +244,10 @@ function userdefinedscript() {
 	[[ "$answer" == "y" || "$answer" == "Y" ]] && cd "/usr/local/bin"
 }
 
+#############################################
+# ssh 
+#############################################
+
 alias userdefinedscript=userdefinedscript
 
 function scpmain() {
@@ -244,6 +257,7 @@ function scpmain() {
 
 alias scpmain=scpmain
 
+# change background
 alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
 alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpaper.sh"
 
