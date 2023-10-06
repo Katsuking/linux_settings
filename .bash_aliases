@@ -160,7 +160,8 @@ function gitup() {
 			source ~/.env # read env vars of email/user
                		git config --global user.email "${USER_EMAIL}"
                		git config --global user.name "${USER_NAME}"
-               		git commit -am "Manual update!"
+			git add -A
+               		git commit -m "Manual update!"
                		git push origin ${BRANCH}:${BRANCH}
 		fi
 	else
