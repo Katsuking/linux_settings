@@ -280,11 +280,14 @@ function userdefinedscript() {
 	[[ "$answer" == "y" || "$answer" == "Y" ]] && cd "/usr/local/bin"
 }
 
+alias userdefinedscript=userdefinedscript
+
 #############################################
 # ssh 
 #############################################
 
-alias userdefinedscript=userdefinedscript
+alias sshconfig='nv ~/.ssh/config'
+alias nvconfig='nv ~/.ssh/config'
 
 function scpmain() {
 	local item=$1
