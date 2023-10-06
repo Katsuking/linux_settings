@@ -10,8 +10,8 @@ if [[ $(hostname) == "super" ]];then
 fi
 
 if [[ $(hostname) == "main" ]]; then
-	export dev="/home/im-outie/Desktop/development"
-	export appimage="/home/im-outie/Desktop/appimage"
+	export dev="${HOME}/Desktop/development"
+	export appimage="${HOME}/Desktop/appimage"
 	alias nv="${appimage}/nvim.appimage --appimage-extract-and-run"
 fi
 
@@ -78,7 +78,7 @@ function cdff() {
 
 alias cdff=cdff
 
-function fg() {
+function ffg() {
         local txt="$1"
         local fp=$(ff)
         if [[ -d ${fp} ]];then
@@ -87,6 +87,8 @@ function fg() {
                 [[ -n $txt ]] && sudo grep "${txt}" --color=auto -r $(dirname ${fp}) 2>/dev/null
         fi
 }
+
+alias ffg=ffg
 
 function nf() {
         # change dir + open file with neovim
@@ -109,23 +111,37 @@ function nf() {
 
 alias nf=nf
 
+function nfmemo() {
+	local current_dir=$(pwd)
+	nf ~/memo.md
+	cd ${current_dir}
+}
+
+alias nfmemo=nfmemo
+
 alias devnf="cd ${dev} && nf"
 
 # change dir + open with vscode
-function ffcode() {
+function codeff() {
         local cmdarg=${1}
         [[ -z ${cmdarg} ]] && local fp=$(ff)
 
-        [[ -n ${cmdarg} ]] && code "${cmdarg}"
+	if [[ -n ${cmdarg} ]];then 
+		cd $(dirname ${cmdarg}) 2> dev/null && code .
+	fi
 
         if [[ -f "${fp}" ]];then
-                cd $(dirname "${fp}")
+                cd $(dirname "${fp}") && code . 
                 [[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
-                code $(basename "${fp}")
+        fi
+	
+	if [[ -d "${fp}" ]];then
+                cd ${fp} && code . 
+                [[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
         fi
 }
 
-alias ffcode=ffcode 
+alias codeff=codeff 
 
 #############################################
 ### git
@@ -144,8 +160,7 @@ function gitup() {
 			source ~/.env # read env vars of email/user
                		git config --global user.email "${USER_EMAIL}"
                		git config --global user.name "${USER_NAME}"
-               		git add -A
-               		git commit -m "Manual update!"
+               		git commit -am "Manual update!"
                		git push origin ${BRANCH}:${BRANCH}
 		fi
 	else
@@ -233,6 +248,26 @@ EOF
 
 alias pymakefile=pymakefile
 
+function dockermakefile() {
+	[[ ! -f "$(pwd)/docker-compose.yaml" ]] && touch "$(pwd)/docker-compose.yaml"  
+	[[ ! -f "$(pwd)/Makefile" ]] && cat << 'EOF' > "$(pwd)/Makefile"
+COMPOSE:=docker-compose.yml
+.PHONY: up down
+
+up: ${COMPOSE}
+	docker compose up -d
+
+down: ${COMPOSE}
+	docker compose down
+	docker ps -a
+EOF
+
+}
+
+alias dockermakefile=dockermakefile
+
+
+
 # mv a custom script to /usr/local/bin
 # user defined script
 function userdefinedscript() {
@@ -263,5 +298,16 @@ alias slideshow_off="bash ${dev}/generalJob/tool/kill_script_process.sh wallpape
 
 # monitor size
 alias monitor_size="cat /sys/class/graphics/*/modes"
+
+# godot
+godot_path="/media/external1/developement/godotProjects"
+alias godot="cd ${godot_path} && pwdc  && folder ${godot_path}"
+
+#############################################
+# extract
+#############################################
+
+alias unzipall='find ./ -type f  -name "*.zip" -exec unzip {} \;' 
+alias unrarall='find ./ -type f  -name "*.zip" -exec unrar x {} \;' 
 
 
