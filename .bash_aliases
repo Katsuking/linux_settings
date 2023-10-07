@@ -21,6 +21,21 @@ alias py="python3"
 # utils
 #############################################
 
+# mkdir + cd
+function mkdircd() {
+	local name=${1}
+	mkdir ${name} && cd ${name}
+}
+alias mkdircd=mkdircd
+
+function mkdirtouch() {
+	local path=${1}
+	mkdir -p $(dirname ${path})
+	touch ${path}
+}
+alias mkdirtouch=mkdirtouch
+alias mkfile=mkdirtouch
+
 alias xclip="xclip -selection c"
 alias clip='xclip -selection c'
 
@@ -56,6 +71,8 @@ function myalias() {
 alias myalias=myalias
 
 alias bashrc='sudo vim ~/.bashrc && source ~/.bashrc'
+
+# alias absolutepath="cd $( dirname "${BASH_SOURCE[0]}" ) &> /dev/null && pwd"
 
 #############################################
 ### fzf neovim
