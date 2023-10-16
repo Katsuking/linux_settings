@@ -95,17 +95,44 @@ function cdff() {
 
 alias cdff=cdff
 
-function ffg() {
-        local txt="$1"
-        local fp=$(ff)
-        if [[ -d ${fp} ]];then
-                [[ -n $txt ]] && sudo grep "${txt}" --color=auto -r ${fp} 2>/dev/null
-        elif [[ -f ${fp} ]];then
-                [[ -n $txt ]] && sudo grep "${txt}" --color=auto -r $(dirname ${fp}) 2>/dev/null
-        fi
-}
+#############################################
+### ファイル検索 find file
+#############################################
 
-alias ffg=ffg
+# # ffg ファイル検索
+# TARGET_STRING=${1}
+# TARGET_FILE=${2}
+# 
+# # 第二引数が空なら全ファイル検索
+# [[ -z ${TARGET_FILE} ]] && TARGET_FILE="*"
+# 
+# if [[ -z ${TARGET_STRING} ]]; then
+#   cat <<'EOF'
+# *** command line parameter required ***
+# ffg <target string> <target file>
+# EOF
+#   exit 1
+# fi
+# 
+# files=($(sudo find $(pwd) -name "${TARGET_FILE}" -type f 2>/dev/null))
+# 
+# echo 'search through '"${#files[@]}"' files'
+# 
+# for ((i = 0; i < ${#files[@]}; i++)); do
+#   if grep -q "${TARGET_STRING}" "${files[${i}]}"; then
+#     echo '#####################################################'
+#     echo Target file: "${files[${i}]}"
+#     echo '#####################################################'
+#     cat "${files[${i}]}" | grep --color=auto -C 3 "${TARGET_STRING}"
+#     echo
+#   fi
+# done
+
+# alias ffg=ffg
+
+#############################################
+### neovim  
+#############################################
 
 function nf() {
         # change dir + open file with neovim
@@ -133,8 +160,14 @@ function nfmemo() {
 	nf ~/memo.md
 	cd ${current_dir}
 }
-
 alias nfmemo=nfmemo
+
+function nftask() {
+	local current_dir=$(pwd)
+	nf ~/tasks.md
+	cd ${current_dir}
+}
+alias nftask=nftask
 
 alias devnf="cd ${dev} && nf"
 
@@ -164,21 +197,39 @@ alias codeff=codeff
 ### git
 #############################################
 
+alias gitlog='git log --graph --oneline --decorate'
+
+function gitrm() {
+	local target=${1}
+	[[ -z ${target} ]] && echo "add a target file name as cmd param"
+	git rm --cached -r ${target}
+}
+alias gitrm=gitrm
+
+function gituntrack() {
+	# untrack file from git
+	local file=${1}
+	git rm --cached -r ${file}
+}
+alias gituntrack=gituntrack
+
 function gitup() {
 	local cwd=$(pwd)
 	local rootdir=$(git rev-parse --show-toplevel 2>/dev/null)
+	local message=${1}
+	[[ -z ${message} ]] && message="update"
 	if [[ -n ${rootdir} ]];then
 		git status
 		echo
 		BRANCH=$(git symbolic-ref --short HEAD)
+		[[ -z $(git status -s) ]] && echo "all clean" && return
 		read -p "Do you want to push all changes to ${BRANCH}? (y/n) " answer
 		if [[ "$answer" == "y" || "$answer" == "Y" ]];then
 			git pull origin ${BRANCH}
 			source ~/.env # read env vars of email/user
                		git config --global user.email "${USER_EMAIL}"
                		git config --global user.name "${USER_NAME}"
-			git add -A
-               		git commit -m "Manual update!"
+               		git commit -am "${message}"
                		git push origin ${BRANCH}:${BRANCH}
 		fi
 	else
@@ -214,9 +265,7 @@ function gitpushall() {
 		if [ -d "$root_dir/.git" ]; then
 			cd "${root_dir}"
 			git status
-			echo
-			BRANCH=$(git symbolic-ref --short HEAD)
-			read -p "Do you want to push all changes inside $(basename ${root_dir}) dir to ${BRANCH}? (y/n) " answer
+			echo BRANCH=$(git symbolic-ref --short HEAD) read -p "Do you want to push all changes inside $(basename ${root_dir}) dir to ${BRANCH}? (y/n) " answer
 			if [[ "$answer" == "y" || "$answer" == "Y" ]]; then		
 	   			git pull origin ${BRANCH}
 	   	     		git config --global user.email "${USER_EMAIL}"
@@ -242,16 +291,22 @@ function gitpushall() {
 
 # create Makefile template for python
 function pymakefile() {
-
+	local GITIGNORE=$(pwd)/.gitignore
 	[[ ! -f $(pwd)/requirements.txt ]] && touch "$(pwd)/requirements.txt"
-
+	[[ ! -f ${GITIGNORE} ]] && cat << 'EOF' >  "${GITIGNORE}"
+venv/
+EOF
 	[[ ! -f "$(pwd)/Makefile" ]] && cat << 'EOF' > "$(pwd)/Makefile"
 VENV = venv
+ACTIVATE=venv/bin/activate
 PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip
 
-run: $(VENV)/bin/activate
-	$(PYTHON) main.py
+.PHONY: run clean
+
+run: $(addprefix run-, ${FILENAME})
+run-%: $(VENV)/bin/activate
+	$(PYTHON) ${@:run-%=%}.py
 
 $(VENV)/bin/activate: requirements.txt
 	python3 -m venv $(VENV)
@@ -260,7 +315,6 @@ $(VENV)/bin/activate: requirements.txt
 clean:
 	rm -rf __pycache__
 	rm -rf $(VENV)
-
 EOF
 }
 
@@ -283,8 +337,6 @@ EOF
 }
 
 alias dockermakefile=dockermakefile
-
-
 
 # mv a custom script to /usr/local/bin
 # user defined script
