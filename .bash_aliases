@@ -58,7 +58,7 @@ export EDITOR='nv'
 
 # alias git_push="sudo bash ${dev}/generalJob/git_cron/push.sh"
 
-alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y'
+alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y && sudo snap refresh'
 
 # alias
 function myalias() {
@@ -169,6 +169,13 @@ function nftask() {
 }
 alias nftask=nftask
 
+function nfmind() {
+	local current_dir=$(pwd)
+	nf ~/mind.md
+	cd ${current_dir}
+}
+alias nfmind=nfmind
+
 alias devnf="cd ${dev} && nf"
 
 # change dir + open with vscode
@@ -229,8 +236,10 @@ function gitup() {
 			source ~/.env # read env vars of email/user
                		git config --global user.email "${USER_EMAIL}"
                		git config --global user.name "${USER_NAME}"
-               		git commit -am "${message}"
+			git add -A
+               		git commit -m "${message}"
                		git push origin ${BRANCH}:${BRANCH}
+			git status -s
 		fi
 	else
 		echo "could not find a git root directory!"
@@ -284,6 +293,11 @@ function gitpushall() {
 	done
 }
 
+#############################################
+# docker 
+#############################################
+
+alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty" 
 
 #############################################
 # Makefile 
