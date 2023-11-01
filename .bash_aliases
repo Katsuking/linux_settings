@@ -21,6 +21,8 @@ alias py="python3"
 # utils
 #############################################
 
+alias ll="ls -al"
+
 # mkdir + cd
 function mkdircd() {
 	local name=${1}
@@ -36,8 +38,13 @@ function mkdirtouch() {
 alias mkdirtouch=mkdirtouch
 alias mkfile=mkdirtouch
 
-alias xclip="xclip -selection c"
-alias clip='xclip -selection c'
+# macを考慮
+if [[ $(uname -s) == 'Darwin' ]]; then
+        alias clip='pbcopy'
+else
+	alias xclip="xclip -selection c"
+	alias clip='xclip -selection c'
+fi
 
 alias pwdc='pwd | clip'
 
@@ -396,5 +403,4 @@ alias godot="cd ${godot_path} && pwdc  && folder ${godot_path}"
 
 alias unzipall='find ./ -type f  -name "*.zip" -exec unzip {} \;' 
 alias unrarall='find ./ -type f  -name "*.zip" -exec unrar x {} \;' 
-
 
