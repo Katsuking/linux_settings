@@ -1,5 +1,32 @@
 
 #############################################
+# zsh
+#############################################
+
+# zsh
+autoload -Uz compinit && compinit
+
+### ---- Completion options and styling -----------------------------------
+zstyle ':completion:*' menu select # selectable menu
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]-_}={[:upper:][:lower:]_-}' 'r:|=*' 'l:|=* r:|=*'  # case insensitive completion
+zstyle ':completion:*' special-dirs true # Complete . and .. special directories
+zstyle ':completion:*' list-colors '' # colorize completion lists
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01' # colorize kill list
+
+# git-promptの読み込み
+source ~/.zsh/git-prompt.sh
+
+# git-completionの読み込み
+fpath=(~/.zsh $fpath)
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+
+# プロンプトのオプション表示設定
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUPSTREAM=auto
+
+#############################################
 # 環境依存 env
 #############################################
 
@@ -69,10 +96,10 @@ alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -
 
 # alias
 function myalias() {
-	sudo vim ~/.bash_aliases && source ~/.bashrc
+	sudo vim ~/.zsh_aliases && source ~/.zshrc
 	# git 管理しているディレクトリに飛ばす
-	cp  ~/.bash_aliases ${dev}/wiki/linux
-	cp  ~/.bash_aliases ${dev}/linux_settings
+	cp  ~/.zsh_aliases ${dev}/wiki/linux
+	cp  ~/.zsh_aliases ${dev}/linux_settings
 }
 
 alias myalias=myalias
@@ -210,6 +237,14 @@ alias codeff=codeff
 #############################################
 ### git
 #############################################
+
+alias g='git'
+alias gs='git status'
+
+function gitconfig() {
+	git config --global --edit
+	cp  ~/.gitconfig ${dev}/linux_settings
+}
 
 alias gitlog='git log --graph --oneline --decorate'
 
