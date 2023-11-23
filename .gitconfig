@@ -17,3 +17,6 @@
 	c = commit -m
 	b = branch
 	l = log
+	p = push
+[pager]
+	branch = false
