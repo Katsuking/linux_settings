@@ -3,6 +3,11 @@
 # zsh
 #############################################
 
+function zshrc() {
+	sudo vim ~/.zshrc && source ~/.zshrc
+	cp  ~/.zshrc ${dev}/linux_settings
+}
+
 # zsh
 autoload -Uz compinit && compinit
 
@@ -240,6 +245,8 @@ alias codeff=codeff
 
 alias g='git'
 alias gs='git status'
+
+alias gitrestore='git log --graph --decorate $(git rev-list -g --all)'
 
 function gitconfig() {
 	git config --global --edit
