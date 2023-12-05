@@ -1,0 +1,50 @@
+version: "3"
+services:
+  nginxproxymanager:
+    image: jc21/nginx-proxy-manager:2.10.3
+    container_name: nginxproxymanager
+    ports:
+      - 80:80 # Public
+      - 81:81 # Admin web
+      - 4043:443 # Public
+    environment:
+      - DB_MYSQL_HOST=nginxproxymanager-db
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_USER=npm
+      - DB_MYSQL_PASSWORD=npm
+      - DB_MYSQL_NAME=npm
+    volumes:
+      - nginxproxymanager-data:/data
+      - nginxproxymanager-ssl:/etc/letsencrypt
+
+  nginxproxymanager-db:
+    image: jc21/mariadb-aria:10.4.15
+    container_name: db-for-nginxproxymanager
+    environment:
+      - MYSQL_ROOT_PASSWORD=npm
+      - MYSQL_DATABASE=npm
+      - MYSQL_USER=npm
+      - MYSQL_PASSWORD=npm
+    volumes:
+      - nginxproxymanager-db:/var/lib/mysql
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8080:80/tcp"
+    environment:
+      TZ: "Asis/Tokyo"
+      WEBPASSWORD: "oLvBpIeC2by7Ot8MgoPt44rrMXoEgOvk"
+    # Volumes store your data between container upgrades
+    volumes:
+      - "./etc-pihole:/etc/pihole"
+      - "./etc-dnsmasq.d:/etc/dnsmasq.d"
+    restart: unless-stopped
+
+volumes:
+  nginxproxymanager-data:
+  nginxproxymanager-ssl:
+  nginxproxymanager-db:

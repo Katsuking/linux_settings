@@ -17,7 +17,11 @@
 	c = commit -m
 	b = branch
 	l = log
-	p = push
+	p = push origin
 	e = config --global --edit
+	d = diff
+	sta = stash
+	sp = stash pop
+	sl = stash list
 [pager]
 	branch = false
