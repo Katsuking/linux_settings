@@ -14,8 +14,8 @@ services:
       - DB_MYSQL_PASSWORD=npm
       - DB_MYSQL_NAME=npm
     volumes:
-      - nginxproxymanager-data:/data
-      - nginxproxymanager-ssl:/etc/letsencrypt
+      - ./nginxproxymanager-data:/data
+      - ./nginxproxymanager-ssl:/etc/letsencrypt
 
   nginxproxymanager-db:
     image: jc21/mariadb-aria:10.4.15
@@ -26,7 +26,7 @@ services:
       - MYSQL_USER=npm
       - MYSQL_PASSWORD=npm
     volumes:
-      - nginxproxymanager-db:/var/lib/mysql
+      - ./nginxproxymanager-db:/var/lib/mysql
 
   pihole:
     container_name: pihole
@@ -38,13 +38,7 @@ services:
     environment:
       TZ: "Asis/Tokyo"
       WEBPASSWORD: "oLvBpIeC2by7Ot8MgoPt44rrMXoEgOvk"
-    # Volumes store your data between container upgrades
     volumes:
       - "./etc-pihole:/etc/pihole"
       - "./etc-dnsmasq.d:/etc/dnsmasq.d"
     restart: unless-stopped
-
-volumes:
-  nginxproxymanager-data:
-  nginxproxymanager-ssl:
-  nginxproxymanager-db:
