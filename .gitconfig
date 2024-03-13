@@ -1,3 +1,7 @@
+
+[init]
+    defaultBranch = main
+
 [user]
 	email = legendsoccerforte5@gmail.com
 	name = Katsuking
