@@ -1,31 +1,36 @@
-
 [init]
-    defaultBranch = main
-
+        defaultBranch = main
 [user]
-	email = legendsoccerforte5@gmail.com
-	name = Katsuking
+        email = legendsoccerforte5@gmail.com
+        name = Katsuking
 [safe]
-	directory = /opt/lampp/htdocs/php_dir
+        directory = /opt/lampp/htdocs/php_dir
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
 [alias]
-    	s = status
-    	ss = status -s
-	a = add
-	aa = add -A
-    	co = checkout
-	c = commit -m
-	b = branch
-	l = log
-	p = push origin
-	e = config --global --edit
-	d = diff
-	sta = stash
-	sp = stash pop
-	sl = stash list
+        s = status
+        ss = status -s
+        a = add
+        aa = add -A
+        au = add -u
+        co = checkout
+        c = commit -m
+        b = branch
+        l = log
+        m = merge
+        p = push origin
+        e = config --global --edit
+        d = diff
+        dc = diff --cached # local repo とstaging の比較
+        dh = diff HEAD # local repo とworking dirの比較
+        sta = stash
+        sp = stash pop
+        sl = stash list
+        ls = ls-files
+        # stagingからもlocal repoからも削除する場合は、git rm でOK
+        rmc = rm --cached # staging上に間違えてaddしたファイルの削除
 [pager]
-	branch = false
+        branch = false
