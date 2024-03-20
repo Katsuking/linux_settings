@@ -1,9 +1,8 @@
-
 #############################################
 # 環境依存 env
 #############################################
 
-if [[ $(hostname) == "super" ]];then
+if [[ $(hostname) == "super" ]]; then
 	export dev="/media/external1/developement"
 	export ssd='/media/external1'
 	alias nv='${ssd}/appimage/nvim.appimage'
@@ -40,7 +39,7 @@ alias mkfile=mkdirtouch
 
 # macを考慮
 if [[ $(uname -s) == 'Darwin' ]]; then
-        alias clip='pbcopy'
+	alias clip='pbcopy'
 else
 	alias xclip="xclip -selection c"
 	alias clip='xclip -selection c'
@@ -49,8 +48,8 @@ fi
 alias pwdc='pwd | clip'
 
 function catc() {
-        local filename="$1"
-        cat $filename | clip
+	local filename="$1"
+	cat $filename | clip
 }
 
 alias catc=catc
@@ -71,8 +70,8 @@ alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -
 function myalias() {
 	sudo vim ~/.bash_aliases && source ~/.bashrc
 	# git 管理しているディレクトリに飛ばす
-	cp  ~/.bash_aliases ${dev}/wiki/linux
-	cp  ~/.bash_aliases ${dev}/linux_settings
+	cp ~/.bash_aliases ${dev}/wiki/linux
+	cp ~/.bash_aliases ${dev}/linux_settings
 }
 
 alias myalias=myalias
@@ -92,12 +91,12 @@ alias ffc="find . | fzf --preview='less {}' --bind shift-up:preview-page-up,shif
 
 function cdff() {
 	# change dir using fzf
-        local fp=$(ffd)
-        if [[ "${fp}" != "." ]] && [[ -n ${fp} ]];then
-                cd $fp && ll
-                # activate python virtual env (venv)
-                [[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
-        fi
+	local fp=$(ffd)
+	if [[ "${fp}" != "." ]] && [[ -n ${fp} ]]; then
+		cd $fp && ll
+		# activate python virtual env (venv)
+		[[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
+	fi
 }
 
 alias cdff=cdff
@@ -109,10 +108,10 @@ alias cdff=cdff
 # # ffg ファイル検索
 # TARGET_STRING=${1}
 # TARGET_FILE=${2}
-# 
+#
 # # 第二引数が空なら全ファイル検索
 # [[ -z ${TARGET_FILE} ]] && TARGET_FILE="*"
-# 
+#
 # if [[ -z ${TARGET_STRING} ]]; then
 #   cat <<'EOF'
 # *** command line parameter required ***
@@ -120,11 +119,11 @@ alias cdff=cdff
 # EOF
 #   exit 1
 # fi
-# 
+#
 # files=($(sudo find $(pwd) -name "${TARGET_FILE}" -type f 2>/dev/null))
-# 
+#
 # echo 'search through '"${#files[@]}"' files'
-# 
+#
 # for ((i = 0; i < ${#files[@]}; i++)); do
 #   if grep -q "${TARGET_STRING}" "${files[${i}]}"; then
 #     echo '#####################################################'
@@ -138,24 +137,24 @@ alias cdff=cdff
 # alias ffg=ffg
 
 #############################################
-### neovim  
+### neovim
 #############################################
 
 function nf() {
-        # change dir + open file with neovim
-        local cmdarg=${1}
-        [[ -z ${cmdarg} ]] && local fp=$(find . -type f | fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down)
+	# change dir + open file with neovim
+	local cmdarg=${1}
+	[[ -z ${cmdarg} ]] && local fp=$(find . -type f | fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down)
 
-	[[ -n ${cmdarg} ]]  && cd $(dirname ${cmdarg}) 2>/dev/null && nv "${cmdarg}"
+	[[ -n ${cmdarg} ]] && cd $(dirname ${cmdarg}) 2>/dev/null && nv "${cmdarg}"
 
-	if [[ -n ${fp} ]];then
+	if [[ -n ${fp} ]]; then
 		cd $(dirname "${fp}")
 		[[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
 		nv $(basename "${fp}" 2>/dev/null)
 	fi
 
 	# init.luaを編集した場合は、git管理ディレクトリへ飛ばす
-	if [[ $(basename ${fp} 2>/dev/null ) == "init.lua" ]]; then
+	if [[ $(basename ${fp} 2>/dev/null) == "init.lua" ]]; then
 		cp -rp ~/.config/nvim/* "${dev}/vim"
 	fi
 }
@@ -187,25 +186,25 @@ alias devnf="cd ${dev} && nf"
 
 # change dir + open with vscode
 function codeff() {
-        local cmdarg=${1}
-        [[ -z ${cmdarg} ]] && local fp=$(ff)
+	local cmdarg=${1}
+	[[ -z ${cmdarg} ]] && local fp=$(ff)
 
-	if [[ -n ${cmdarg} ]];then 
-		cd $(dirname ${cmdarg}) 2> dev/null && code .
+	if [[ -n ${cmdarg} ]]; then
+		cd $(dirname ${cmdarg}) 2>dev/null && code .
 	fi
 
-        if [[ -f "${fp}" ]];then
-                cd $(dirname "${fp}") && code . 
-                [[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
-        fi
-	
-	if [[ -d "${fp}" ]];then
-                cd ${fp} && code . 
-                [[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
-        fi
+	if [[ -f "${fp}" ]]; then
+		cd $(dirname "${fp}") && code .
+		[[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
+	fi
+
+	if [[ -d "${fp}" ]]; then
+		cd ${fp} && code .
+		[[ $(ls | grep venv) == "venv" ]] && source 'venv/bin/activate'
+	fi
 }
 
-alias codeff=codeff 
+alias codeff=codeff
 
 #############################################
 ### git
@@ -232,20 +231,20 @@ function gitup() {
 	local rootdir=$(git rev-parse --show-toplevel 2>/dev/null)
 	local message=${1}
 	[[ -z ${message} ]] && message="update"
-	if [[ -n ${rootdir} ]];then
+	if [[ -n ${rootdir} ]]; then
 		git status
 		echo
 		BRANCH=$(git symbolic-ref --short HEAD)
 		[[ -z $(git status -s) ]] && echo "all clean" && return
 		read -p "Do you want to push all changes to ${BRANCH}? (y/n) " answer
-		if [[ "$answer" == "y" || "$answer" == "Y" ]];then
+		if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
 			git pull origin ${BRANCH}
 			source ~/.env # read env vars of email/user
-               		git config --global user.email "${USER_EMAIL}"
-               		git config --global user.name "${USER_NAME}"
+			git config --global user.email "${USER_EMAIL}"
+			git config --global user.name "${USER_NAME}"
 			git add -A
-               		git commit -m "${message}"
-               		git push origin ${BRANCH}:${BRANCH}
+			git commit -m "${message}"
+			git push origin ${BRANCH}:${BRANCH}
 			git status -s
 		fi
 	else
@@ -257,67 +256,65 @@ alias gitup=gitup
 
 # git のroot dirを配列で用意
 git_root=(
-    "${dev}/generalJob"
-    "${dev}/docker-compose"
-    "${dev}/python_for_fun"
-    "${dev}/wiki"
-    "${dev}/javascriptProjects"
-    "${dev}/linux_settings"
+	"${dev}/generalJob"
+	"${dev}/docker-compose"
+	"${dev}/python_for_fun"
+	"${dev}/wiki"
+	"${dev}/javascriptProjects"
+	"${dev}/linux_settings"
 )
 
 function gitpullall() {
-	for root_dir in "${git_root[@]}"
-	do
+	for root_dir in "${git_root[@]}"; do
 		cd ${root_dir}
-	        BRANCH=$(git symbolic-ref --short HEAD)
+		BRANCH=$(git symbolic-ref --short HEAD)
 		git pull origin ${BRANCH}
 	done
 }
 
 function gitpushall() {
 	source ~/.env
-	for root_dir in "${git_root[@]}"
-	do
+	for root_dir in "${git_root[@]}"; do
 		if [ -d "$root_dir/.git" ]; then
 			cd "${root_dir}"
 			git status
 			echo BRANCH=$(git symbolic-ref --short HEAD) read -p "Do you want to push all changes inside $(basename ${root_dir}) dir to ${BRANCH}? (y/n) " answer
-			if [[ "$answer" == "y" || "$answer" == "Y" ]]; then		
-	   			git pull origin ${BRANCH}
-	   	     		git config --global user.email "${USER_EMAIL}"
-	   	     		git config --global user.name "${USER_NAME}"
-	   	     		git add -A
-	   	     		git commit -m "daily update!"
-	   	     		git push origin ${BRANCH}:${BRANCH}
+			if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+				git pull origin ${BRANCH}
+				git config --global user.email "${USER_EMAIL}"
+				git config --global user.name "${USER_NAME}"
+				git add -A
+				git commit -m "daily update!"
+				git push origin ${BRANCH}:${BRANCH}
 			else
 				echo "Skipping ${root_dir} brannch: ${BRANCH}"
 				continue
 			fi
-	    	else
+		else
 			echo "Could not find git in this dir: ${root_dir}"
-	        	continue
-	   	fi
+			continue
+		fi
 	done
 }
 
 #############################################
-# docker 
+# docker
 #############################################
 
-alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty" 
+alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty"
 
 #############################################
-# Makefile 
+# Makefile
 #############################################
 
 # create Makefile template for python
 function pymakefile() {
 	local GITIGNORE=$(pwd)/.gitignore
 	[[ ! -f $(pwd)/requirements.txt ]] && touch "$(pwd)/requirements.txt"
-	[[ ! -f ${GITIGNORE} ]] && cat << 'EOF' >  "${GITIGNORE}"
+	[[ ! -f ${GITIGNORE} ]] && cat <<'EOF' >"${GITIGNORE}"
 venv/
 EOF
-	[[ ! -f "$(pwd)/Makefile" ]] && cat << 'EOF' > "$(pwd)/Makefile"
+	[[ ! -f "$(pwd)/Makefile" ]] && cat <<'EOF' >"$(pwd)/Makefile"
 VENV = venv
 ACTIVATE=venv/bin/activate
 PYTHON = $(VENV)/bin/python3
@@ -342,8 +339,8 @@ EOF
 alias pymakefile=pymakefile
 
 function dockermakefile() {
-	[[ ! -f "$(pwd)/docker-compose.yaml" ]] && touch "$(pwd)/docker-compose.yaml"  
-	[[ ! -f "$(pwd)/Makefile" ]] && cat << 'EOF' > "$(pwd)/Makefile"
+	[[ ! -f "$(pwd)/docker-compose.yaml" ]] && touch "$(pwd)/docker-compose.yaml"
+	[[ ! -f "$(pwd)/Makefile" ]] && cat <<'EOF' >"$(pwd)/Makefile"
 COMPOSE:=docker-compose.yml
 .PHONY: up down
 
@@ -373,7 +370,7 @@ function userdefinedscript() {
 alias userdefinedscript=userdefinedscript
 
 #############################################
-# shell 
+# shell
 #############################################
 
 alias shell_list='cat /etc/shells'
@@ -381,7 +378,7 @@ alias zsh_as_default='chsh -s /usr/bin/zsh'
 alias bash_as_default='chsh -s /usr/bin/bash'
 
 #############################################
-# ssh 
+# ssh
 #############################################
 
 alias sshconfig='nv ~/.ssh/config'
@@ -409,6 +406,5 @@ alias godot="cd ${godot_path} && pwdc  && folder ${godot_path}"
 # extract
 #############################################
 
-alias unzipall='find ./ -type f  -name "*.zip" -exec unzip {} \;' 
-alias unrarall='find ./ -type f  -name "*.zip" -exec unrar x {} \;' 
-
+alias unzipall='find ./ -type f  -name "*.zip" -exec unzip {} \;'
+alias unrarall='find ./ -type f  -name "*.zip" -exec unrar x {} \;'

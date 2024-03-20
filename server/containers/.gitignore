@@ -1,0 +1,9 @@
+etc-dnsmasq.d/
+etc-pihole/
+
+# guacamole
+init/
+data/
+nginx/
+drive/
+record/
