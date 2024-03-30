@@ -20,6 +20,7 @@ alias py="python3"
 # utils
 #############################################
 
+alias g='git'
 alias ll="ls -al"
 
 # mkdir + cd
@@ -204,8 +205,6 @@ function codeff() {
 	fi
 }
 
-alias codeff=codeff
-
 #############################################
 ### git
 #############################################
@@ -217,14 +216,12 @@ function gitrm() {
 	[[ -z ${target} ]] && echo "add a target file name as cmd param"
 	git rm --cached -r ${target}
 }
-alias gitrm=gitrm
 
 function gituntrack() {
 	# untrack file from git
 	local file=${1}
 	git rm --cached -r ${file}
 }
-alias gituntrack=gituntrack
 
 function gitup() {
 	local cwd=$(pwd)
@@ -251,8 +248,6 @@ function gitup() {
 		echo "could not find a git root directory!"
 	fi
 }
-
-alias gitup=gitup
 
 # git のroot dirを配列で用意
 git_root=(
@@ -301,6 +296,8 @@ function gitpushall() {
 # docker
 #############################################
 
+alias d='docker'
+alias dc='docker compose'
 alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty"
 
 #############################################
@@ -336,8 +333,6 @@ clean:
 EOF
 }
 
-alias pymakefile=pymakefile
-
 function dockermakefile() {
 	[[ ! -f "$(pwd)/docker-compose.yaml" ]] && touch "$(pwd)/docker-compose.yaml"
 	[[ ! -f "$(pwd)/Makefile" ]] && cat <<'EOF' >"$(pwd)/Makefile"
@@ -354,8 +349,6 @@ EOF
 
 }
 
-alias dockermakefile=dockermakefile
-
 # mv a custom script to /usr/local/bin
 # user defined script
 function userdefinedscript() {
@@ -366,8 +359,6 @@ function userdefinedscript() {
 	read -p "Do you want to change dir to /usr/local/bin ? (y/n) " answer
 	[[ "$answer" == "y" || "$answer" == "Y" ]] && cd "/usr/local/bin"
 }
-
-alias userdefinedscript=userdefinedscript
 
 #############################################
 # shell
@@ -388,8 +379,6 @@ function scpmain() {
 	local item=$1
 	scp -r ${item} main:~/backup
 }
-
-alias scpmain=scpmain
 
 # change background
 alias slideshow_on="bash ${dev}/generalJob/tool/wallpaper.sh &"
