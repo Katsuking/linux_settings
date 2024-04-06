@@ -20,3 +20,8 @@ alias ll='ls -al'
 
 alias g='git'
 alias gitconfig='vim ${HOME}/.gitconfig && source ${HOME}/.bashrc'
+
+#############################################
+# C#
+#############################################
+alias dotnet_console='dotnet new console --framework net8.0 --use-program-main'

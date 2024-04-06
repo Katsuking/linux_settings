@@ -397,3 +397,8 @@ alias godot="cd ${godot_path} && pwdc  && folder ${godot_path}"
 
 alias unzipall='find ./ -type f  -name "*.zip" -exec unzip {} \;'
 alias unrarall='find ./ -type f  -name "*.zip" -exec unrar x {} \;'
+
+#############################################
+# C#
+#############################################
+alias dotnet_console='dotnet new console --framework net8.0 --use-program-main'
