@@ -119,4 +119,10 @@ fi
 PATH=~/.console-ninja/.bin:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# golang
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
 
