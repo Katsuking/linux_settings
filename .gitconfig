@@ -1,3 +1,4 @@
+
 [init]
         defaultBranch = main
 [user]
@@ -10,6 +11,8 @@
         smudge = git-lfs smudge -- %f
         process = git-lfs filter-process
         required = true
+# [remote "origin"]
+	# url = git@github.com:Katsuking/javascriptProjects.git 
 [alias]
         s = status
         ss = status -s
@@ -32,5 +35,8 @@
         ls = ls-files
         # stagingからもlocal repoからも削除する場合は、git rm でOK
         rmc = rm --cached # staging上に間違えてaddしたファイルの削除
+	ylog = "!f() { git log --no-merges --since='$(date -d "1 day ago" "+%Y/%m/%d 00:00:00")' --until='$(date -d "1 day ago" "+%Y/%m/%d 23:59:59")' --date=iso --pretty=format:'%H %cd %cn %d %s'; };f" # 昨日ログを確認する
+	tlog = "!f() { git log --no-merges --since='$(date "+%Y/%m/%d 00:00:00")' --until='$(date "+%Y/%m/%d 23:59:59")' --date=iso --pretty=format:'%H %cd %cn %d %s'; };f" # 今日ログを確認する
 [pager]
         branch = false
+
