@@ -37,6 +37,17 @@
         rmc = rm --cached # staging上に間違えてaddしたファイルの削除
 	ylog = "!f() { git log --no-merges --since='$(date -d "1 day ago" "+%Y/%m/%d 00:00:00")' --until='$(date -d "1 day ago" "+%Y/%m/%d 23:59:59")' --date=iso --pretty=format:'%H %cd %cn %d %s'; };f" # 昨日ログを確認する
 	tlog = "!f() { git log --no-merges --since='$(date "+%Y/%m/%d 00:00:00")' --until='$(date "+%Y/%m/%d 23:59:59")' --date=iso --pretty=format:'%H %cd %cn %d %s'; };f" # 今日ログを確認する
+	rtag = ls-remote --tags # remoteにあるタグを確認する
+	conf = !git ls-files -u | cut -f 2 | sort -u # コンフリクトが発生しているファイルを表示
 [pager]
         branch = false
-
+[core]
+	symlinks = false
+	autocrlf = false # 改行文字を自動で変換することを防ぐ
+	fscache = true # キャッシュして、速度を上げる
+	quotepath = false # 非ASCII文字をエスケープしない
+# [http]
+	# sslverify = false
+	# proxy = http://user:password@example.com:port
+# [https]
+	# proxy = http://user:password@example.com:port
