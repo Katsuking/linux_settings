@@ -1,0 +1,125 @@
+{
+  "terminal.integrated.env.linux": {},
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.editorAssociations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "editor.formatOnSave": true,
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "console-ninja.featureSet": "Community",
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[markdown]": {
+    "editor.wordWrap": "off",
+    "editor.renderWhitespace": "all",
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.formatOnSave": false
+  },
+  "[go]": {
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  },
+  "python.defaultInterpreterPath": "/home/im-outie/Documents/development/ai_python/venv",
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+  "terminal.integrated.env.windows": {},
+  "workbench.iconTheme": "vscode-icons",
+  "redhat.telemetry.enabled": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "cmake.configureOnOpen": true,
+  "files.eol": "\n",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "python.analysis.autoImportCompletions": true,
+  "prisma.showPrismaDataPlatformNotification": false,
+  // golang
+  "go.toolsManagement.autoUpdate": true,
+  "breadcrumbs.enabled": false,
+  "[properties]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "editor.minimap.enabled": false,
+  // ##############################################################
+  // vim setup
+  "vim.leader": "<Space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // NAVIGATION
+    // switch b/w buffers
+    { "before": ["<S-h>"], "commands": [":bprevious"] },
+    { "before": ["<S-l>"], "commands": [":bnext"] },
+    // splits
+    { "before": ["leader", "v"], "commands": [":vsplit"] },
+    { "before": ["leader", "s"], "commands": [":split"] },
+    // panes
+    {
+      "before": ["leader", "h"],
+      "commands": ["workbench.action.focusLeftGroup"]
+    },
+    {
+      "before": ["leader", "j"],
+      "commands": ["workbench.action.focusBelowGroup"]
+    },
+    {
+      "before": ["leader", "k"],
+      "commands": ["workbench.action.focusAboveGroup"]
+    },
+    {
+      "before": ["leader", "l"],
+      "commands": ["workbench.action.focusRightGroup"]
+    },
+    {
+      "before": ["leader", "d"],
+      "commands": [{ "command": "editor.action.showDefinitionPreviewHover" }]
+    },
+    {
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    // Stay in visual mode while indenting
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    // Move selected lines while staying in visual mode
+    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+    // toggle comment selection
+    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] }
+  ],
+  "vim.startInInsertMode": false,
+  "vim.useCtrlKeys": false,
+  "vim.overrideCopy": false,
+  // 一部vim無効化
+  "vim.handleKeys": {
+    "<C-w>": false, // タブの削除はデフォ
+    "<C-d>": false // ワード複数選択はvscodeデフォルトで
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.formatOnSave": true
+  }
+}
