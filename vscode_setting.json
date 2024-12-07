@@ -9,7 +9,7 @@
     "strings": "on"
   },
   "markdown.copyFiles.destination": {
-    "/base/**/*": "/base/images/${documentBaseName}/${documentBaseName}.${fileName/^(.+)\\.([^.]+)/$2/}"
+    "*": "images/${documentBaseName}.${fileName/^(.+)\\.([^.]+)/$2/}"
   },
   "editor.formatOnSave": true,
   "[dotenv]": {
