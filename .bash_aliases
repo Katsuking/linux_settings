@@ -24,9 +24,11 @@ alias py="python3"
 # utils
 #############################################
 
+alias sshconfig='sudo vim ~/.ssh/config'
 alias gitconfig='sudo vim ~/.gitconfig'
 
 alias g='git'
+alias gs='git status'
 alias gb='git branch'
 alias gd='git diff'
 alias gst='git stash'
@@ -307,6 +309,8 @@ function gitpushall() {
 
 alias d='docker'
 alias dc='docker compose'
+alias dimg='docker images'
+alias di='docker inspect'
 alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty"
 
 #############################################
