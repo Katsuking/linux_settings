@@ -24,6 +24,8 @@ alias py="python3"
 # utils
 #############################################
 
+alias gitconfig='sudo vim ~/.gitconfig'
+
 alias g='git'
 alias gb='git branch'
 alias gd='git diff'
@@ -379,8 +381,8 @@ alias bash_as_default='chsh -s /usr/bin/bash'
 # ssh
 #############################################
 
-alias sshconfig='nv ~/.ssh/config'
-alias nvconfig='nv ~/.ssh/config'
+alias sshconfig='vim ~/.ssh/config'
+alias nvconfig='vim ~/.ssh/config'
 
 function scpmain() {
 	local item=$1
