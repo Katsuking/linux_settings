@@ -14,6 +14,10 @@ if [[ $(hostname) == "main" ]]; then
 	alias nv="${appimage}/nvim.appimage --appimage-extract-and-run"
 fi
 
+if [[ $(hostname) == "imoutie" ]]; then
+	export dev="/media/ssd/development"
+fi
+
 alias py="python3"
 
 #############################################
@@ -21,6 +25,9 @@ alias py="python3"
 #############################################
 
 alias g='git'
+alias gb='git branch'
+alias gd='git diff'
+alias gst='git stash'
 alias ll="ls -al"
 
 # mkdir + cd
