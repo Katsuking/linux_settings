@@ -33,6 +33,7 @@ services:
       - ./init:/docker-entrypoint-initdb.d:z
       - ./data:/var/lib/postgresql/data:Z
 
+  #  username: “guacadmin” and password: “admin”.
   guacamole:
     container_name: guacamole_compose
     depends_on:

@@ -7,3 +7,6 @@ data/
 nginx/
 drive/
 record/
+
+# nginx-proxy-manager
+nginxproxymanager-*
