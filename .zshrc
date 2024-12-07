@@ -115,3 +115,14 @@ source $ZSH/oh-my-zsh.sh
 if [ -e ~/.zsh_aliases ]; then
 	source ~/.zsh_aliases
 fi
+
+PATH=~/.console-ninja/.bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# golang
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
+
