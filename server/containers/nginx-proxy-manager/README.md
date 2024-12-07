@@ -64,6 +64,10 @@ network:
           password: "<パスワード>"
 ```
 
+```sh
+sudo netplan apply # 設定の適用
+```
+
 netplan の確認 (ubuntu のみ)
 
 ```sh

@@ -8,6 +8,9 @@
   "editor.quickSuggestions": {
     "strings": "on"
   },
+  "markdown.copyFiles.destination": {
+    "/base/**/*": "/base/images/${documentBaseName}/${documentBaseName}.${fileName/^(.+)\\.([^.]+)/$2/}"
+  },
   "editor.formatOnSave": true,
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
@@ -121,5 +124,6 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8",
     "editor.formatOnSave": true
-  }
+  },
+  "update.showReleaseNotes": false
 }

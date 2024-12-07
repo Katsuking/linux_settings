@@ -55,8 +55,21 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 # utils
 #############################################
 
+function appwrite() {
+       docker run -it --rm \
+       --volume /var/run/docker.sock:/var/run/docker.sock \
+       --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
+       --entrypoint="install" \
+       appwrite/appwrite:1.5.5
+}
+
 # beekeeper
 alias beekeeper='~/Downloads/appImage/Beekeeper-Studio-4.6.8.AppImage --appimage-extract-and-run > /dev/null 2>&1'
+
+# obsidian
+alias obsidian='sudo ~/Desktop/appimage/Obsidian-1.7.6.AppImage --appimage-extract-and-run --no-sandbox'
+
+alias affine='cd ${dev}/docker-compose/affine_note_taking_app; docker compose up;'
 
 alias ll="ls -al"
 
@@ -356,6 +369,8 @@ alias dps="docker ps"
 alias dc="docker compose"
 alias dce="docker compose exec"
 alias di="docker inspect"
+alias dimg="docker images"
+alias dimgr="docker image rm"
 
 alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty"
 alias drawio="echo "localhost:8080" | clip && docker run -it --rm --name="draw" -p 8080:8080 -p 8443:8443 jgraph/drawio"
