@@ -2,6 +2,7 @@
   "terminal.integrated.env.linux": {},
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
   "workbench.editorAssociations": {
     "*.css": "tailwindcss"
   },
@@ -11,7 +12,6 @@
   "markdown.copyFiles.destination": {
     "*": "images/${documentBaseName}.${fileName/^(.+)\\.([^.]+)/$2/}"
   },
-  "editor.formatOnSave": true,
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
@@ -25,7 +25,9 @@
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
+
   "[markdown]": {
+    "editor.formatOnSave": true,
     "editor.wordWrap": "off",
     "editor.renderWhitespace": "all",
     "editor.acceptSuggestionOnEnter": "on",
@@ -33,8 +35,7 @@
       "comments": "on",
       "strings": "on",
       "other": "on"
-    },
-    "editor.formatOnSave": false
+    }
   },
   "[go]": {
     "editor.insertSpaces": true,
@@ -64,16 +65,24 @@
   "breadcrumbs.enabled": false,
   "[properties]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
+},
   "editor.minimap.enabled": false,
   // ##############################################################
   // vim setup
   "vim.leader": "<Space>",
   "vim.normalModeKeyBindingsNonRecursive": [
     // NAVIGATION
-    // switch b/w buffers
-    { "before": ["<S-h>"], "commands": [":bprevious"] },
-    { "before": ["<S-l>"], "commands": [":bnext"] },
+    // start/end of the line
+    { "before": ["<S-h>"], "commands": ["cursorLineStart"] },
+    { "before": ["<S-l>"], "commands": ["cursorLineEnd"] },
+    // shift + h + jの挙動の無効化
+    {
+      "before": ["<S-h>", "<S-j>"],
+      "commands": []
+    },
+    // // switch b/w buffers
+    // { "before": ["<S-h>"], "commands": [":bprevious"] },
+    // { "before": ["<S-l>"], "commands": [":bnext"] },
     // splits
     { "before": ["leader", "v"], "commands": [":vsplit"] },
     { "before": ["leader", "s"], "commands": [":split"] },
@@ -111,7 +120,16 @@
     { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
     { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
     // toggle comment selection
-    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] }
+    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] },
+    // visualモードでも行頭/行末に移動
+    {
+      "before": ["<S-h>"],
+      "after": ["0"]
+    },
+      {
+      "before": ["<S-l>"],
+      "after": ["$"]
+    }
   ],
   "vim.startInInsertMode": false,
   "vim.useCtrlKeys": false,
@@ -125,5 +143,7 @@
     "editor.defaultFormatter": "ms-python.autopep8",
     "editor.formatOnSave": true
   },
-  "update.showReleaseNotes": false
+  "update.showReleaseNotes": false,
+  "markdown-mermaid.lightModeTheme": "dark"
 }
+
