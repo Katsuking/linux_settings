@@ -6,6 +6,13 @@
 docker compose up -d
 ```
 
+### static IP の設定(GUI ubuntu)
+
+![alt text](images/README.png)
+
+pi-hole を動かしていたubuntu はこのように設定していたので、久々に動かすとping が使えなくなっていた。
+画像のように、設定して、`/etc/netplan`も直していればネットワークは元通り動くはず。
+
 ### static IP の設定
 
 下記で各種クライアントに Static IP を使って、DNS を指定する。

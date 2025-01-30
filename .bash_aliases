@@ -24,11 +24,59 @@ alias py="python3"
 # utils
 #############################################
 
+alias sshconfig='sudo vim ~/.ssh/config'
+alias gitconfig='sudo vim ~/.gitconfig'
+
 alias g='git'
+alias gs='git status'
 alias gb='git branch'
 alias gd='git diff'
 alias gst='git stash'
 alias ll="ls -al"
+
+function rename_all() {
+	# 対象のディレクトリを指定（引数で指定しない場合、カレントディレクトリを使用）
+	local target_dir="${1:-.}"
+
+	# find コマンドで指定ディレクトリ直下を検索（maxdepth 1 で直下のみ対象）
+	find "$target_dir" -maxdepth 1 | while IFS= read -r dir; do
+		# "." がディレクトリ名として含まれるのを防ぐ（カレントディレクトリは除外）
+		if [[ "$dir" != "$target_dir" ]]; then
+			# 半角スペースと全角スペースをアンダースコアに変換
+			new_name=$(echo "$dir" | sed 's/ /_/g' | sed 's/　/_/g')
+
+			# 新しい名前と元の名前が異なる場合のみ mv を実行
+			if [[ "$dir" != "$new_name" ]]; then
+				echo "Renaming: $dir -> $new_name"
+				mv "$dir" "$new_name"
+			else
+				echo "No rename needed: $dir"
+			fi
+		fi
+	done
+}
+
+function rename_dir() {
+	# 対象のディレクトリを指定（引数で指定しない場合、カレントディレクトリを使用）
+	local target_dir="${1:-.}"
+
+	# find コマンドで指定ディレクトリ直下を検索（maxdepth 1 で直下のみ対象）
+	find "$target_dir" -maxdepth 1 -type d | while IFS= read -r dir; do
+		# "." がディレクトリ名として含まれるのを防ぐ（カレントディレクトリは除外）
+		if [[ "$dir" != "$target_dir" ]]; then
+			# 半角スペースと全角スペースをアンダースコアに変換
+			new_name=$(echo "$dir" | sed 's/ /_/g' | sed 's/　/_/g')
+
+			# 新しい名前と元の名前が異なる場合のみ mv を実行
+			if [[ "$dir" != "$new_name" ]]; then
+				echo "Renaming: $dir -> $new_name"
+				mv "$dir" "$new_name"
+			else
+				echo "No rename needed: $dir"
+			fi
+		fi
+	done
+}
 
 # mkdir + cd
 function mkdircd() {
@@ -305,6 +353,8 @@ function gitpushall() {
 
 alias d='docker'
 alias dc='docker compose'
+alias dimg='docker images'
+alias di='docker inspect'
 alias plantuml="echo "localhost:8080" | clip && docker run -it --rm --name="plantuml" -p 8080:8080 plantuml/plantuml-server:jetty"
 
 #############################################
@@ -379,8 +429,8 @@ alias bash_as_default='chsh -s /usr/bin/bash'
 # ssh
 #############################################
 
-alias sshconfig='nv ~/.ssh/config'
-alias nvconfig='nv ~/.ssh/config'
+alias sshconfig='vim ~/.ssh/config'
+alias nvconfig='vim ~/.ssh/config'
 
 function scpmain() {
 	local item=$1
