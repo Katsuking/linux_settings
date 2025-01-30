@@ -219,7 +219,8 @@ function nfmemo() {
 	nf ~/memo.md
 	cd ${current_dir}
 }
-alias nfmemo=nfmemo
+
+alias memo='code ~/Documents/jobs'
 
 function nftask() {
 	local current_dir=$(pwd)
@@ -265,6 +266,8 @@ alias codeff=codeff
 
 alias g='git'
 alias gs='git status'
+alias gd='git diff'
+alias gf='git fetch'
 
 alias gitrestore='git log --graph --decorate $(git rev-list -g --all)'
 
