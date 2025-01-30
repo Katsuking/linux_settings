@@ -1,20 +1,40 @@
-
 [init]
         defaultBranch = main
 [user]
         email = legendsoccerforte5@gmail.com
         name = Katsuking
+[diff]
+	tool = vscode
+[difftool]
+	prompt = false
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [safe]
         directory = /opt/lampp/htdocs/php_dir
+[merge]
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
 [filter "lfs"]
         clean = git-lfs clean -- %f
         smudge = git-lfs smudge -- %f
         process = git-lfs filter-process
         required = true
 # [remote "origin"]
-	# url = git@github.com:Katsuking/javascriptProjects.git 
+	# url = git@github.com:Katsuking/javascriptProjects.git
+[core]
+	ignorecase = false
+	editor = code --wait
 [alias]
+	f = fetch origin
+	cp = cherry-pick
+	dt = difftool
+	dn = diff --name-only
+	vv = branch -vv
         s = status
+	st = stash
+	stp = stash push -m
+	stl = stash list
         ss = status -s
         a = add
         aa = add -A
@@ -29,7 +49,6 @@
         d = diff
         dc = diff --cached # local repo とstaging の比較
         dh = diff HEAD # local repo とworking dirの比較
-        sta = stash
         sp = stash pop
         sl = stash list
         ls = ls-files
@@ -42,12 +61,9 @@
 [pager]
         branch = false
 [core]
-	symlinks = false
-	autocrlf = false # 改行文字を自動で変換することを防ぐ
-	fscache = true # キャッシュして、速度を上げる
-	quotepath = false # 非ASCII文字をエスケープしない
-# [http]
-	# sslverify = false
-	# proxy = http://user:password@example.com:port
-# [https]
-	# proxy = http://user:password@example.com:port
+symlinks = false
+autocrlf = false # 改行文字を自動で変換することを防ぐ
+fscache = true # キャッシュして、速度を上げる
+quotepath = false # 非ASCII文字をエスケープしない
+
+
