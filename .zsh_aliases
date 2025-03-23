@@ -55,6 +55,9 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 # utils
 #############################################
 
+# sudo ~/Desktop/appimage/Obsidian-1.8.7.AppImage --appimage-extract でsquash-rootを作成する
+alias obsidian='~/Desktop/appimage/obsidian/Obsidian-1.8.9.AppImage --appimage-extract-and-run --no-sandbox'
+
 function appwrite() {
        docker run -it --rm \
        --volume /var/run/docker.sock:/var/run/docker.sock \
@@ -65,9 +68,6 @@ function appwrite() {
 
 # beekeeper
 alias beekeeper='~/Downloads/appImage/Beekeeper-Studio-4.6.8.AppImage --appimage-extract-and-run > /dev/null 2>&1'
-
-# obsidian
-alias obsidian='sudo ~/Desktop/appimage/Obsidian-1.7.6.AppImage --appimage-extract-and-run --no-sandbox'
 
 alias affine='cd ${dev}/docker-compose/affine_note_taking_app; docker compose up;'
 
