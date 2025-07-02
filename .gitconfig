@@ -1,7 +1,7 @@
 [init]
         defaultBranch = main
 [user]
-        email = legendsoccerforte5@gmail.com
+        email = EMAIL HERE
         name = Katsuking
 [diff]
 	tool = vscode
