@@ -2,6 +2,8 @@
 # 環境依存 env
 #############################################
 
+export PS1='\[\033[01;33m\] \w \[\033[01;31m\]$(__git_ps1 "(%s)") \n\[\033[01;34m\]\$\[\033[00m\] '
+
 if [[ $(hostname) == "super" ]]; then
 	export dev="/media/external1/developement"
 	export ssd='/media/external1'
@@ -18,14 +20,27 @@ if [[ $(hostname) == "imoutie" ]]; then
 	export dev="/media/ssd/development"
 fi
 
+if [[ $(hostname) == "mojo" ]]; then
+	export dev="/mnt/su650_adata/development"
+fi
+
 alias py="python3"
 
 #############################################
 # utils
 #############################################
 
+if [[ $(whoami) == "root" ]]; then
+	sudo groupadd docker
+	sudo usermod -aG docker ${USER}
+	newgrp docker
+fi
+
 alias sshconfig='sudo vim ~/.ssh/config'
 alias gitconfig='sudo vim ~/.gitconfig'
+
+# cpu temperature monitor
+alias tempMonitor='psensor'
 
 alias g='git'
 alias gs='git status'
@@ -126,8 +141,8 @@ alias update='sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -
 function myalias() {
 	sudo vim ~/.bash_aliases && source ~/.bashrc
 	# git 管理しているディレクトリに飛ばす
-	cp ~/.bash_aliases ${dev}/wiki/linux
-	cp ~/.bash_aliases ${dev}/linux_settings
+	# cp ~/.bash_aliases ${dev}/wiki/linux
+	# cp ~/.bash_aliases ${dev}/linux_settings
 }
 
 alias myalias=myalias
@@ -458,4 +473,15 @@ alias unrarall='find ./ -type f  -name "*.zip" -exec unrar x {} \;'
 #############################################
 # C#
 #############################################
+
 alias dotnet_console='dotnet new console --framework net8.0 --use-program-main'
+
+# golang
+export PATH=$PATH:/usr/local/go/bin
+
+#############################################
+# arduino
+#############################################
+
+alias arduino='~/downloads/appImages/arduino/squashfs-root/AppRun'
+
