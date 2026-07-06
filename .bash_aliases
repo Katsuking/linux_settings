@@ -20,8 +20,8 @@ if [[ $(hostname) == "imoutie" ]]; then
 	export dev="/media/ssd/development"
 fi
 
-if [[ $(hostname) == "mojo" ]]; then
-	export dev="/mnt/su650_adata/development"
+if [[ $(whoami) == "mojo" ]]; then
+	export dev="${HOME}/Documents/dev"
 fi
 
 alias py="python3"
@@ -29,6 +29,22 @@ alias py="python3"
 #############################################
 # utils
 #############################################
+
+# open web
+openweb () {
+  xdg-open "$1" >/dev/null 2>&1
+}
+
+# macを考慮
+if [[ $(uname -s) == 'Darwin' ]]; then
+	alias clip='pbcopy'
+else
+	# alias xclip="xclip -selection c"
+	alias clip='xclip -selection c'
+fi
+
+alias pwdc='pwd | clip'
+alias envlist="env | fzf --preview 'echo {}' | clip"
 
 if [[ $(whoami) == "root" ]]; then
 	sudo groupadd docker
@@ -108,15 +124,7 @@ function mkdirtouch() {
 alias mkdirtouch=mkdirtouch
 alias mkfile=mkdirtouch
 
-# macを考慮
-if [[ $(uname -s) == 'Darwin' ]]; then
-	alias clip='pbcopy'
-else
-	alias xclip="xclip -selection c"
-	alias clip='xclip -selection c'
-fi
 
-alias pwdc='pwd | clip'
 
 function catc() {
 	local filename="$1"
@@ -229,8 +237,6 @@ function nf() {
 		cp -rp ~/.config/nvim/* "${dev}/vim"
 	fi
 }
-
-alias nf=nf
 
 function nfmemo() {
 	local current_dir=$(pwd)
