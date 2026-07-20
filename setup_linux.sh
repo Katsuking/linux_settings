@@ -74,7 +74,8 @@ sudo apt install -y \
     fzf \
     xclip \
     ibus-mozc \
-    nvidia-cuda-toolkit
+    direnv
+    # nvidia-cuda-toolkit \
 
 sudo snap install chromium
 
