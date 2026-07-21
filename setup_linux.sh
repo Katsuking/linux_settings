@@ -4,16 +4,19 @@
 # 設定変数 (Variables) - 必要に応じて書き換えてください
 # ==========================================
 
-#
+# ブラウザでWEBを開く関数
 function openweb {
     xdg-open "$1" >/dev/null 2>&1 &
 }
 
+# Determine script directory safely
+SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # EMAIL="your_email@example.com"
 ALIASES_URL="https://raw.githubusercontent.com/Katsuking"
 # color
 CYAN='\033[1;36m'
 NC='\033[0m' # Reset color
+EXTS='extensions.txt'
 
 echo "=== Antigravity の存在確認 ==="
 
@@ -28,6 +31,15 @@ if ! command -v antigravity &> /dev/null; then
     exit 1
 fi
 
+if ! command -v code &> /dev/null; then
+    echo "------------------------------------------------------------"
+    echo "[エラー] 'code' コマンドが見つかりません。"
+    echo "        VS Code をインストールし、'code' コマンドがパスにあることを確認してください。"
+    echo "------------------------------------------------------------"
+    openweb https://code.visualstudio.com/download
+    exit 1
+fi
+
 # 一時ディレクトリを作成 終了時に削除
 echo "creating temporary directory..."
 tmpdir=$(mktemp -d)
@@ -39,6 +51,7 @@ echo "=== Starting System Setup Script ==="
 # ====================================
 # antigravity setup
 # ====================================
+
 curl -fsSL \
   "${ALIASES_URL}"/linux_settings/main/vscode_setting.json \
   -o "$tmp"
@@ -53,10 +66,36 @@ done
 # install extensions
 echo "[OK] Antigravity が見つかりました。拡張機能のインストールに進みます。"
 while IFS= read -r extension || [ -n "$extension" ]; do
+    extension="$(echo "$extension" | xargs)"
     [[ -z "$extension" || "$extension" =~ ^# ]] && continue # skip empty lines and comments
-    echo "Installing extension: $extension"
-    antigravity --install-extension "$extension"
-done < extensions.txt
+    echo "Installing Antigravity extension: $extension"
+    if ! antigravity --install-extension "$extension"; then
+        echo "⚠️ $extension のインストールに失敗しました"
+    fi
+done < "${SCRIPT_DIR}/${EXTS}"
+
+# ====================================
+# vscode setup
+# ===============================
+
+# vscode も同様に
+find ~/.config -type f -path "*/Code/User/settings.json" -print0 |
+while IFS= read -r -d '' file; do
+    echo "settings.json の場所: $file"
+    cp "$tmp" "$file"
+done
+
+# install extensions
+echo "[OK] vscode が見つかりました。拡張機能のインストールに進みます。"
+while IFS= read -r extension || [ -n "$extension" ]; do
+    extension="$(echo "$extension" | xargs)"
+    [[ -z "$extension" || "$extension" =~ ^# ]] && continue # skip empty lines and comments
+    echo "Installing vscode extension: $extension"
+    if ! code --install-extension "$extension"; then
+    echo "⚠️ $extension のインストールに失敗しました"
+fi
+done < "${SCRIPT_DIR}/${EXTS}"
+
 
 
 # システムの更新 (System Update)

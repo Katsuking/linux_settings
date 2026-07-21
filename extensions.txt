@@ -1,0 +1,3 @@
+jakebecker.elixir-ls
+ms-azuretools.vscode-containers
+vscodevim.vim
