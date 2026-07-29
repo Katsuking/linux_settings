@@ -46,6 +46,8 @@ fi
 alias pwdc='pwd | clip'
 alias envlist="env | fzf --preview 'echo {}' | clip"
 
+alias rand='openssl rand -base64 48'
+
 if [[ $(whoami) == "root" ]]; then
 	sudo groupadd docker
 	sudo usermod -aG docker ${USER}
