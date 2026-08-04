@@ -117,7 +117,9 @@ sudo apt install -y \
     net-tools
     # nvidia-cuda-toolkit \
 
-sudo snap install chromium
+sudo snap install -y \
+    chromium \
+    vlc
 
 # GNOME環境（GNOME) で正しく設定されているか確認
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'jp'), ('ibus', 'mozc-jp')]"
