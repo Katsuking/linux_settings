@@ -1,0 +1,46 @@
+{
+  "Phony Declaration": {
+    "prefix": "phony",
+    "body": [
+      ".PHONY: ${1:all clean}"
+    ],
+    "description": "Insert .PHONY target definition"
+  },
+  "Help Target": {
+    "prefix": "help",
+    "body": [
+      ".PHONY: help",
+      "help:",
+      "\t@echo \"Usage: make [target]\"",
+      "\t@echo \"\"",
+      "\t@echo \"Targets:\"",
+      "\t@echo \"  ${1:build}    - ${2:Build project}\"",
+      "\t@echo \"  ${3:clean}    - ${4:Remove build artifacts}\"",
+      "$0"
+    ],
+    "description": "Insert self-documenting help target"
+  },
+  "Standard Build & Clean Structure": {
+    "prefix": "mkbase",
+    "body": [
+      ".PHONY: all build clean",
+      "",
+      "all: build",
+      "",
+      "build:",
+      "\t${1:# build commands}",
+      "",
+      "clean:",
+      "\t${2:rm -rf build}",
+      "$0"
+    ],
+    "description": "Insert basic Makefile structure"
+  },
+  "Variable Assignment": {
+    "prefix": "var",
+    "body": [
+      "${1:VARIABLE} ?= ${2:value}"
+    ],
+    "description": "Insert variable with default value setting"
+  }
+}

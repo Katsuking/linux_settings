@@ -1,0 +1,42 @@
+{
+"Generic Code Block": {
+    "prefix": "code",
+    "body": [
+      "```${1:bash}",
+      "$0",
+      "```"
+    ],
+    "description": "Insert a code block with customizable language"
+  },
+  "Table Template": {
+    "prefix": "table",
+    "body": [
+      "| ${1:Header 1} | ${2:Header 2} |",
+      "| --- | --- |",
+      "| ${3:Item 1} | ${4:Item 2} |",
+      "$0"
+    ],
+    "description": "Insert a Markdown table"
+  },
+  "Collapsible Section": {
+    "prefix": ["details", "section"],
+    "body": [
+      "<details>",
+      "<summary>${1:Click to expand}</summary>",
+      "",
+      "$0",
+      "",
+      "</details>"
+    ],
+    "description": "Insert a collapsible details block"
+  },
+  "Task List": {
+    "prefix": "todo",
+    "body": [
+      "- [ ] ${1:Task 1}",
+      "- [ ] ${2:Task 2}",
+      "$0"
+    ],
+    "description": "Insert task list items"
+  }
+}
