@@ -1,5 +1,6 @@
 {
   "terminal.integrated.env.linux": {},
+  "editor.editContext": false, // ubuntu vscodeで日本語入力がバグる問題の解消
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": false,
@@ -144,6 +145,7 @@
     "editor.formatOnSave": true
   },
   "update.showReleaseNotes": false,
-  "markdown-mermaid.lightModeTheme": "dark"
+  "markdown-mermaid.lightModeTheme": "dark",
+  "git.autofetch": true
 }
 
