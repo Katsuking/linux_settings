@@ -30,6 +30,8 @@ alias py="python3"
 # utils
 #############################################
 
+alias version='lsb_release -a'
+
 # open web
 openweb () {
   xdg-open "$1" >/dev/null 2>&1
