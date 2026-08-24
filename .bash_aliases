@@ -489,6 +489,9 @@ alias dotnet_console='dotnet new console --framework net8.0 --use-program-main'
 # golang
 export PATH=$PATH:/usr/local/go/bin
 
+# nim
+export PATH=/home/mojo/.nimble/bin:$PATH
+
 #############################################
 # arduino
 #############################################
