@@ -30,6 +30,12 @@ alias py="python3"
 # utils
 #############################################
 
+# clone先にしてたら使える
+alias wiki="code ${dev}/wiki"
+
+# 使うけど、忘れるコマンドを記録
+alias commands="code ${dev}/linux_settings/commands.md"
+
 alias version='lsb_release -a'
 
 # open web
