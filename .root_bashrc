@@ -5,3 +5,9 @@ else
 fi
 
 umask 077 # root が作るファイルはデフォで厳しくする
+
+
+# alias
+
+alias ll='ls -al'
+alias bashrc="vim ~/.bashrc && source ~/.bashrc"
