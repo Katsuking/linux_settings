@@ -30,6 +30,33 @@ alias py="python3"
 # utils
 #############################################
 
+# generate a password
+function password() {
+    local length="${1:-20}"
+    local chars='A-Za-z0-9!@#$%^&*_=+-'
+
+    if [ "$length" -lt 4 ]; then
+        echo "Usage: password [length] (minimum 4)" >&2
+        return 1
+    fi
+
+    {
+        tr -dc 'A-Z' </dev/urandom | head -c 1
+        tr -dc 'a-z' </dev/urandom | head -c 1
+        tr -dc '0-9' </dev/urandom | head -c 1
+        tr -dc '!@#$%^&*_=+-' </dev/urandom | head -c 1
+        tr -dc "$chars" </dev/urandom | head -c "$((length - 4))"
+    } | fold -w1 | shuf | tr -d '\n'
+
+    echo
+}
+
+
+function simplepass() {
+	tr -dc 'A-Za-z0-9' < /dev/urandom | head -c "${1:-20}"
+	echo
+}
+
 # clone先にしてたら使える
 alias wiki="code ${dev}/wiki"
 

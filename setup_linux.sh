@@ -114,6 +114,7 @@ sudo apt install -y \
     xclip \
     ibus-mozc \
     direnv \
+    jq \
     net-tools
     # nvidia-cuda-toolkit \
 
