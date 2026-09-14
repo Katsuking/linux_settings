@@ -30,6 +30,50 @@ alias py="python3"
 # utils
 #############################################
 
+# 画面に手書きで
+alias gm='gromit-mpx'
+
+# gpu
+alias gpu="nvidia-smi"
+
+pcspec() {
+	echo "===== OS ====="
+	cat /etc/os-release | grep -E '^(PRETTY_NAME|VERSION)='
+	echo "Kernel : $(uname -r)"
+	echo "Arch   : $(uname -m)"
+
+	echo
+	echo "===== CPU ====="
+	lscpu | grep -E \
+			'^(Model name|CPU\(s\)|Thread|Core|Socket|NUMA|CPU MHz|CPU max MHz|CPU min MHz):'
+
+	echo
+	echo "===== Memory ====="
+	free -h
+
+	echo
+	echo "===== GPU ====="
+	lspci | grep -Ei 'vga|3d|display' || echo "GPU information not found"
+
+	echo
+	echo "===== Disk ====="
+	lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS,MODEL
+
+	echo
+	echo "===== Filesystem ====="
+	df -hT --exclude-type=tmpfs --exclude-type=devtmpfs
+
+	echo
+	echo "===== Network ====="
+	ip -br addr
+
+	echo
+	echo "===== Host ====="
+	echo "Hostname : $(hostname)"
+	echo "Uptime   : $(uptime -p)"
+}
+
+
 # generate a password
 function password() {
     local length="${1:-20}"
