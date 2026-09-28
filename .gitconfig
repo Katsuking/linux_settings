@@ -1,8 +1,7 @@
 [init]
         defaultBranch = main
 [user]
-        email = EMAIL HERE
-        name = Katsuking
+        name = GIT_USERNAME_HERE
 [diff]
 	tool = vscode
 [difftool]
@@ -20,8 +19,7 @@
         smudge = git-lfs smudge -- %f
         process = git-lfs filter-process
         required = true
-# [remote "origin"]
-	# url = git@github.com:Katsuking/javascriptProjects.git
+
 [core]
 	ignorecase = false
 	editor = code --wait
@@ -33,6 +31,8 @@
 	vv = branch -vv
         s = status
 	st = stash
+	sta = stash apply
+	std = stash drop
 	stp = stash push -m
 	stl = stash list
         ss = status -s
