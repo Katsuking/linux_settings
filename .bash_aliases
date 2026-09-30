@@ -73,6 +73,15 @@ pcspec() {
 	echo "Uptime   : $(uptime -p)"
 }
 
+# safe eject a device, e.g. /dev/sdX
+function safe-eject() {
+	if [ -z "$1" ]; then
+		echo "使用方法: safe-eject /dev/sdX\n lsblk とか使って確認"
+		return 1
+	fi
+	sync && udisksctl power-off -b "$1"
+}
+
 
 # generate a password
 function password() {
